@@ -93,6 +93,14 @@ context.with(trace.setSpan(context.active(), span), () => {
 
 When tracing is active, log entries include `trace_id` and `span_id` fields.
 
+## Pretty logs (development)
+
+By default, logging outputs JSON. To enable pretty logs locally, set `LOG_PRETTY=true`. If `LOG_PRETTY` is not set, pretty logs are enabled when `NODE_ENV` is `development` or `test`. Production output remains JSON.
+
+```bash
+LOG_PRETTY=true node ./dist/index.js
+```
+
 ## Conventions
 
 ```typescript
