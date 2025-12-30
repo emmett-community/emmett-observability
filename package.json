@@ -1,0 +1,76 @@
+{
+  "name": "@emmett-community/emmett-observability",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "description": "Application-level observability helpers for Emmett apps (logging + tracing)",
+  "scripts": {
+    "build": "tsup",
+    "build:ts": "tsc",
+    "build:ts:watch": "tsc -b --watch",
+    "test": "run-s test:unit test:int test:e2e",
+    "test:unit": "glob -c \"node --import tsx --import tsx/cjs --test\" \"test/unit/**/*.unit.spec.ts\"",
+    "test:int": "glob -c \"node --import tsx --import tsx/cjs --test\" \"test/integration/**/*.int.spec.ts\"",
+    "test:e2e": "glob -c \"node --import tsx --import tsx/cjs --test\" \"test/e2e/**/*.e2e.spec.ts\"",
+    "test:watch": "node --import tsx --import tsx/cjs --test --watch",
+    "test:unit:watch": "glob -c \"node --import tsx --import tsx/cjs --test --watch\" \"test/unit/**/*.unit.spec.ts\"",
+    "test:int:watch": "glob -c \"node --import tsx --import tsx/cjs --test --watch\" \"test/integration/**/*.int.spec.ts\"",
+    "test:e2e:watch": "glob -c \"node --import tsx --import tsx/cjs --test --watch\" \"test/e2e/**/*.e2e.spec.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmett-community/emmett-observability.git"
+  },
+  "keywords": [
+    "emmett",
+    "observability",
+    "logging",
+    "tracing",
+    "opentelemetry",
+    "pino"
+  ],
+  "author": "Andre X Costa",
+  "bugs": {
+    "url": "https://github.com/emmett-community/emmett-observability/issues"
+  },
+  "homepage": "https://github.com/emmett-community/emmett-observability#readme",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.52.0",
+    "@opentelemetry/resources": "^1.30.0",
+    "@opentelemetry/sdk-node": "^0.52.0",
+    "@opentelemetry/sdk-trace-base": "^1.30.0",
+    "@opentelemetry/semantic-conventions": "^1.30.0",
+    "pino": "^8.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "glob": "^11.0.0",
+    "npm-run-all2": "^6.2.2",
+    "tsup": "^8.2.4",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
