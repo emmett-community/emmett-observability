@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Application-level observability helpers for tracing and logging
 - Explicit OpenTelemetry initialization with OTLP and console exporters
 - Pino logger factory with trace correlation support
+- Optional pretty logging in development/test via `pino-pretty` (opt-in with `LOG_PRETTY=true`, fallback to `NODE_ENV=development|test`)
 - Shared conventions for attribute names and span naming
 - Unit, integration, and e2e tests using node:test
 - Gherkin feature documentation for logging and tracing

@@ -8,6 +8,14 @@ export type LoggerOptions = {
   logLevel?: LevelWithSilent;
 };
 
+const shouldUsePretty = (): boolean => {
+  if (process.env.LOG_PRETTY === 'true') return true;
+
+  const nodeEnv = process.env.NODE_ENV;
+
+  return nodeEnv === 'development' || nodeEnv === 'test';
+};
+
 const buildBaseBindings = (options: LoggerOptions): Record<string, string> => {
   const bindings: Record<string, string> = {
     [ResourceAttributes.serviceName]: options.serviceName,
@@ -36,8 +44,19 @@ const getTraceBindings = (): Record<string, string> | undefined => {
 
 export const createLogger = (options: LoggerOptions): Logger => {
   const baseBindings = buildBaseBindings(options);
+  const prettyEnabled = shouldUsePretty();
+  const transport = prettyEnabled
+    ? pino.transport({
+        target: 'pino-pretty',
+        options: {
+          colorize: true,
+          translateTime: 'SYS:standard',
+          ignore: 'pid,hostname',
+        },
+      })
+    : undefined;
 
-  return pino({
+  const loggerOptions = {
     name: options.serviceName,
     level: options.logLevel ?? 'info',
     mixin: () => {
@@ -47,5 +66,7 @@ export const createLogger = (options: LoggerOptions): Logger => {
 
       return { ...baseBindings, ...traceBindings };
     },
-  });
+  };
+
+  return transport ? pino(loggerOptions, transport) : pino(loggerOptions);
 };
