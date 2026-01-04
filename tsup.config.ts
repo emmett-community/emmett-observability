@@ -5,7 +5,7 @@ const env = process.env.NODE_ENV;
 export default defineConfig([
   {
     format: ['esm', 'cjs'],
-    splitting: true,
+    splitting: false,
     clean: true,
     dts: true,
     // TODO: For some reason minified code doesn't work for cjs
