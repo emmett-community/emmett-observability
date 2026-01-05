@@ -62,7 +62,7 @@ export const createLogger = (options: LoggerOptions): Logger => {
     mixin: () => {
       const traceBindings = getTraceBindings();
 
-      if (!traceBindings) return baseBindings;
+      if (!traceBindings) return { ...baseBindings };
 
       return { ...baseBindings, ...traceBindings };
     },
